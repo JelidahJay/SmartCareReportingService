@@ -1,0 +1,2284 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/12/2023 3:49:31 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="IHM"
+  DTS:CreatorName="IHM\nayin"
+  DTS:DTSID="{45907DDF-68E3-46E5-9AA4-8B4E7773E4B2}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5035.3"
+  DTS:LocaleID="8192"
+  DTS:ObjectName="Staging_to_DW"
+  DTS:PackageType="5"
+  DTS:VersionBuild="37"
+  DTS:VersionGUID="{82BA067B-4F4F-48E1-AFF3-C3369CC00517}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Destination]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{6B393880-67B0-4765-B4C5-883343314DFC}"
+      DTS:ObjectName="Destination">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=SmartCareReportingServiceDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Staging_to_DW-{6B393880-67B0-4765-B4C5-883343314DFC}LocalHost.SmartCareReportingServiceDW;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Source]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{514ECBEF-E8DB-4E89-A636-7A87D230BDBF}"
+      DTS:ObjectName="Source">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=.;Initial Catalog=SmartCareReportingServiceDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Staging_to_DW-{514ECBEF-E8DB-4E89-A636-7A87D230BDBF}LocalHost.SmartCareReportingServiceDW;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load All Dimension Tables"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{FF009B8C-2B41-409A-B0C9-C8E2738341A1}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load All Dimension Tables">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Load All Dimension Tables\Load client_details Fact Table"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{F279F75C-1776-4B29-A18C-320EF94DFB9F}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load client_details Fact Table">
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details"
+              DTS:CreationName="Microsoft.Pipeline"
+              DTS:Description="Data Flow Task"
+              DTS:DTSID="{51B1E11D-C33B-4FD2-8C92-A6E6B0E1BF3B}"
+              DTS:ExecutableType="Microsoft.Pipeline"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="client_details"
+              DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <pipeline
+                  version="1">
+                  <components>
+                    <component
+                      refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails"
+                      componentClassID="Microsoft.OLEDBSource"
+                      contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                      description="OLE DB Source"
+                      name="Exec getUserDetails"
+                      usesDispositions="true"
+                      version="7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset"></property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">EXEC getClientDetails
+WITH RESULT SETS
+(
+  (
+                      user_id int,
+	   client_id int,
+	   relations_id int,
+	   relation_id int
+  )
+)</property>
+                        <property
+                          dataType="System.String"
+                          description="The variable that contains the SQL command to be executed."
+                          name="SqlCommandVariable"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">2</property>
+                        <property
+                          dataType="System.String"
+                          description="The mappings between the parameters in the SQL command and variables."
+                          name="ParameterMapping"></property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[Source]"
+                          connectionManagerRefId="Package.ConnectionManagers[Source]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <outputs>
+                        <output
+                          refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output]"
+                          name="OLE DB Source Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].Columns[user_id]"
+                              dataType="i4"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].ExternalColumns[user_id]"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].Columns[user_id]"
+                              name="user_id"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].Columns[client_id]"
+                              dataType="i4"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].ExternalColumns[client_id]"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].Columns[client_id]"
+                              name="client_id"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].Columns[relations_id]"
+                              dataType="i4"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].ExternalColumns[relations_id]"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].Columns[relations_id]"
+                              name="relations_id"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].Columns[relation_id]"
+                              dataType="i4"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].ExternalColumns[relation_id]"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].Columns[relation_id]"
+                              name="relation_id"
+                              truncationRowDisposition="FailComponent" />
+                          </outputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].ExternalColumns[user_id]"
+                              dataType="i4"
+                              name="user_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].ExternalColumns[client_id]"
+                              dataType="i4"
+                              name="client_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].ExternalColumns[relations_id]"
+                              dataType="i4"
+                              name="relations_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].ExternalColumns[relation_id]"
+                              dataType="i4"
+                              name="relation_id" />
+                          </externalMetadataColumns>
+                        </output>
+                        <output
+                          refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Error Output]"
+                          isErrorOut="true"
+                          name="OLE DB Source Error Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Error Output].Columns[user_id]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Error Output].Columns[user_id]"
+                              name="user_id" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Error Output].Columns[client_id]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Error Output].Columns[client_id]"
+                              name="client_id" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Error Output].Columns[relations_id]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Error Output].Columns[relations_id]"
+                              name="relations_id" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Error Output].Columns[relation_id]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Error Output].Columns[relation_id]"
+                              name="relation_id" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                    <component
+                      refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table"
+                      componentClassID="Microsoft.OLEDBDestination"
+                      contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                      description="OLE DB Destination"
+                      name="Load client_details Fact Table"
+                      usesDispositions="true"
+                      version="4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset">[Fact].[client_details]</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">3</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepIdentity">false</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepNulls">false</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                          name="FastLoadOptions">CHECK_CONSTRAINTS</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                          name="FastLoadMaxInsertCommitSize">2147483647</property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[Destination]"
+                          connectionManagerRefId="Package.ConnectionManagers[Destination]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <inputs>
+                        <input
+                          refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input]"
+                          errorOrTruncationOperation="Insert"
+                          errorRowDisposition="FailComponent"
+                          hasSideEffects="true"
+                          name="OLE DB Destination Input">
+                          <inputColumns>
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input].Columns[client_id]"
+                              cachedDataType="i4"
+                              cachedName="client_id"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input].ExternalColumns[client_id]"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].Columns[client_id]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input].Columns[relation_id]"
+                              cachedDataType="i4"
+                              cachedName="relation_id"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input].ExternalColumns[relation_id]"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].Columns[relation_id]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input].Columns[user_id]"
+                              cachedDataType="i4"
+                              cachedName="user_id"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input].ExternalColumns[user_relations_id]"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].Columns[user_id]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input].Columns[relations_id]"
+                              cachedDataType="i4"
+                              cachedName="relations_id"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input].ExternalColumns[user_details_id]"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output].Columns[relations_id]" />
+                          </inputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input].ExternalColumns[client_details_id]"
+                              dataType="i4"
+                              name="client_details_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input].ExternalColumns[user_relations_id]"
+                              dataType="i4"
+                              name="user_relations_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input].ExternalColumns[user_details_id]"
+                              dataType="i4"
+                              name="user_details_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input].ExternalColumns[client_id]"
+                              dataType="i4"
+                              name="client_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input].ExternalColumns[relation_id]"
+                              dataType="i4"
+                              name="relation_id" />
+                          </externalMetadataColumns>
+                        </input>
+                      </inputs>
+                      <outputs>
+                        <output
+                          refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Outputs[OLE DB Destination Error Output]"
+                          exclusionGroup="1"
+                          isErrorOut="true"
+                          name="OLE DB Destination Error Output"
+                          synchronousInputId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input]">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                  </components>
+                  <paths>
+                    <path
+                      refId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details.Paths[OLE DB Source Output]"
+                      endId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table.Inputs[OLE DB Destination Input]"
+                      name="OLE DB Source Output"
+                      startId="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails.Outputs[OLE DB Source Output]" />
+                  </paths>
+                </pipeline>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load All Dimension Tables\Load patient_status Dimension Table"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{CCE651A0-CBD5-407C-8927-F64B09D3C052}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load patient_status Dimension Table">
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim"
+              DTS:CreationName="Microsoft.Pipeline"
+              DTS:Description="Data Flow Task"
+              DTS:DTSID="{89A9CF5D-3CF2-4A65-B09F-6FEF988EB150}"
+              DTS:ExecutableType="Microsoft.Pipeline"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Load patient_status_dim"
+              DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <pipeline
+                  version="1">
+                  <components>
+                    <component
+                      refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim"
+                      componentClassID="Microsoft.OLEDBDestination"
+                      contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                      description="OLE DB Destination"
+                      name="patient_status_dim"
+                      usesDispositions="true"
+                      version="4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset">[Dimension].[patient_status]</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">3</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepIdentity">true</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepNulls">false</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                          name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                          name="FastLoadMaxInsertCommitSize">2147483647</property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[Destination]"
+                          connectionManagerRefId="Package.ConnectionManagers[Destination]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <inputs>
+                        <input
+                          refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input]"
+                          errorOrTruncationOperation="Insert"
+                          errorRowDisposition="FailComponent"
+                          hasSideEffects="true"
+                          name="OLE DB Destination Input">
+                          <inputColumns>
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].Columns[interaction_id]"
+                              cachedDataType="i4"
+                              cachedName="interaction_id"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].ExternalColumns[interaction_id]"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[interaction_id]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].Columns[status]"
+                              cachedDataType="wstr"
+                              cachedLength="20"
+                              cachedName="status"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].ExternalColumns[status]"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[status]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].Columns[died]"
+                              cachedDataType="bool"
+                              cachedName="died"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].ExternalColumns[died]"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[died]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].Columns[died_date]"
+                              cachedDataType="dbDate"
+                              cachedName="died_date"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].ExternalColumns[died_date]"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[died_date]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].Columns[patient_status_id]"
+                              cachedDataType="i4"
+                              cachedName="patient_status_id"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].ExternalColumns[relations_id]"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[patient_status_id]" />
+                          </inputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].ExternalColumns[interaction_id]"
+                              dataType="i4"
+                              name="interaction_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].ExternalColumns[status]"
+                              dataType="wstr"
+                              length="20"
+                              name="status" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].ExternalColumns[died]"
+                              dataType="bool"
+                              name="died" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].ExternalColumns[died_date]"
+                              dataType="dbDate"
+                              name="died_date" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input].ExternalColumns[relations_id]"
+                              dataType="i4"
+                              name="relations_id" />
+                          </externalMetadataColumns>
+                        </input>
+                      </inputs>
+                      <outputs>
+                        <output
+                          refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Outputs[OLE DB Destination Error Output]"
+                          exclusionGroup="1"
+                          isErrorOut="true"
+                          name="OLE DB Destination Error Output"
+                          synchronousInputId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input]">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                    <component
+                      refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging"
+                      componentClassID="Microsoft.OLEDBSource"
+                      contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                      description="OLE DB Source"
+                      name="patient_status_staging"
+                      usesDispositions="true"
+                      version="7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset"></property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">EXEC getPatientStatus
+WITH RESULT SETS 
+(
+  (                  patient_status_id int,
+      	   interaction_id int, 
+	   status nvarchar(20), 
+	   died bit,
+	   died_date date
+   )  
+)</property>
+                        <property
+                          dataType="System.String"
+                          description="The variable that contains the SQL command to be executed."
+                          name="SqlCommandVariable"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">2</property>
+                        <property
+                          dataType="System.String"
+                          description="The mappings between the parameters in the SQL command and variables."
+                          name="ParameterMapping"></property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[Source]"
+                          connectionManagerRefId="Package.ConnectionManagers[Source]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <outputs>
+                        <output
+                          refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output]"
+                          name="OLE DB Source Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[interaction_id]"
+                              dataType="i4"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].ExternalColumns[interaction_id]"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[interaction_id]"
+                              name="interaction_id"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[status]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].ExternalColumns[status]"
+                              length="20"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[status]"
+                              name="status"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[died]"
+                              dataType="bool"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].ExternalColumns[died]"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[died]"
+                              name="died"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[died_date]"
+                              dataType="dbDate"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].ExternalColumns[died_date]"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[died_date]"
+                              name="died_date"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[patient_status_id]"
+                              dataType="i4"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].ExternalColumns[patient_status_id]"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].Columns[patient_status_id]"
+                              name="patient_status_id"
+                              truncationRowDisposition="FailComponent" />
+                          </outputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].ExternalColumns[interaction_id]"
+                              dataType="i4"
+                              name="interaction_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].ExternalColumns[status]"
+                              dataType="wstr"
+                              length="20"
+                              name="status" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].ExternalColumns[died]"
+                              dataType="bool"
+                              name="died" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].ExternalColumns[died_date]"
+                              dataType="dbDate"
+                              name="died_date" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output].ExternalColumns[patient_status_id]"
+                              dataType="i4"
+                              name="patient_status_id" />
+                          </externalMetadataColumns>
+                        </output>
+                        <output
+                          refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output]"
+                          isErrorOut="true"
+                          name="OLE DB Source Error Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output].Columns[patient_status_id]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output].Columns[patient_status_id]"
+                              name="patient_status_id" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output].Columns[interaction_id]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output].Columns[interaction_id]"
+                              name="interaction_id" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output].Columns[status]"
+                              dataType="wstr"
+                              length="20"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output].Columns[status]"
+                              name="status" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output].Columns[died]"
+                              dataType="bool"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output].Columns[died]"
+                              name="died" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output].Columns[died_date]"
+                              dataType="dbDate"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output].Columns[died_date]"
+                              name="died_date" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                  </components>
+                  <paths>
+                    <path
+                      refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim.Paths[OLE DB Source Output]"
+                      endId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim.Inputs[OLE DB Destination Input]"
+                      name="OLE DB Source Output"
+                      startId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging.Outputs[OLE DB Source Output]" />
+                  </paths>
+                </pipeline>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Load All Dimension Tables\Load patient_status Dimension Table\Truncate table"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:Description="Execute SQL Task"
+              DTS:DTSID="{6d63be5b-60ad-4187-96b8-b2bacd46ce72}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Truncate table"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{6B393880-67B0-4765-B4C5-883343314DFC}"
+                  SQLTask:SqlStatementSource="DELETE FROM dimension.patient_status;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Load All Dimension Tables\Load patient_status Dimension Table.PrecedenceConstraints[Constraint]"
+              DTS:CreationName=""
+              DTS:DTSID="{4E8F77BF-8FC6-4D0B-A131-B35261CFFB13}"
+              DTS:From="Package\Load All Dimension Tables\Load patient_status Dimension Table\Truncate table"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint"
+              DTS:To="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim" />
+          </DTS:PrecedenceConstraints>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load All Dimension Tables\Load user_details Dimension Table"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{F924D140-90BA-4659-8B68-B29751FB3061}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load user_details Dimension Table">
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim"
+              DTS:CreationName="Microsoft.Pipeline"
+              DTS:Description="Data Flow Task"
+              DTS:DTSID="{545D2AF0-C0B0-4AE9-9D90-D944245F4681}"
+              DTS:ExecutableType="Microsoft.Pipeline"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Load user_details_dim"
+              DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <pipeline
+                  version="1">
+                  <components>
+                    <component
+                      refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim"
+                      componentClassID="Microsoft.OLEDBDestination"
+                      contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                      description="OLE DB Destination"
+                      name="client_details_dim"
+                      usesDispositions="true"
+                      version="4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset">[Dimension].[user_details]</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">3</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepIdentity">true</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepNulls">false</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                          name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                          name="FastLoadMaxInsertCommitSize">2147483647</property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[Destination]"
+                          connectionManagerRefId="Package.ConnectionManagers[Destination]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <inputs>
+                        <input
+                          refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input]"
+                          errorOrTruncationOperation="Insert"
+                          errorRowDisposition="FailComponent"
+                          hasSideEffects="true"
+                          name="OLE DB Destination Input">
+                          <inputColumns>
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].Columns[client_id]"
+                              cachedDataType="i4"
+                              cachedName="client_id"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[client_id]"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[client_id]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].Columns[resident_given_name]"
+                              cachedDataType="wstr"
+                              cachedLength="20"
+                              cachedName="resident_given_name"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[resident_given_name]"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[resident_given_name]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].Columns[resident_surname]"
+                              cachedDataType="wstr"
+                              cachedLength="20"
+                              cachedName="resident_surname"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[resident_surname]"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[resident_surname]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].Columns[date_of_birth]"
+                              cachedDataType="dbDate"
+                              cachedName="date_of_birth"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[date_of_birth]"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[date_of_birth]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].Columns[sex]"
+                              cachedDataType="wstr"
+                              cachedLength="20"
+                              cachedName="sex"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[sex]"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[sex]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].Columns[address_type]"
+                              cachedDataType="wstr"
+                              cachedLength="20"
+                              cachedName="address_type"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[address_type]"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[address_type]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].Columns[district_name]"
+                              cachedDataType="wstr"
+                              cachedLength="20"
+                              cachedName="district_name"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[district_name]"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[district_name]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].Columns[mobile_phone_number]"
+                              cachedDataType="wstr"
+                              cachedLength="15"
+                              cachedName="mobile_phone_number"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[mobile_phone_number]"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[mobile_phone_number]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].Columns[user_id]"
+                              cachedDataType="i4"
+                              cachedName="user_id"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[user_id]"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[user_id]" />
+                          </inputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[client_id]"
+                              dataType="i4"
+                              name="client_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[resident_given_name]"
+                              dataType="wstr"
+                              length="20"
+                              name="resident_given_name" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[resident_surname]"
+                              dataType="wstr"
+                              length="20"
+                              name="resident_surname" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[date_of_birth]"
+                              dataType="dbDate"
+                              name="date_of_birth" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[sex]"
+                              dataType="wstr"
+                              length="20"
+                              name="sex" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[address_type]"
+                              dataType="wstr"
+                              length="20"
+                              name="address_type" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[district_name]"
+                              dataType="wstr"
+                              length="20"
+                              name="district_name" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[mobile_phone_number]"
+                              dataType="wstr"
+                              length="15"
+                              name="mobile_phone_number" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input].ExternalColumns[user_id]"
+                              dataType="i4"
+                              name="user_id" />
+                          </externalMetadataColumns>
+                        </input>
+                      </inputs>
+                      <outputs>
+                        <output
+                          refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Outputs[OLE DB Destination Error Output]"
+                          exclusionGroup="1"
+                          isErrorOut="true"
+                          name="OLE DB Destination Error Output"
+                          synchronousInputId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input]">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                    <component
+                      refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging"
+                      componentClassID="Microsoft.OLEDBSource"
+                      contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                      description="OLE DB Source"
+                      name="client_details_staging"
+                      usesDispositions="true"
+                      version="7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset"></property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">EXEC getUserRegistrationDetails 
+WITH RESULT SETS ( 
+    (
+                      user_id int,
+       	   client_id int,
+	   resident_given_name nvarchar(20), 
+	   resident_surname nvarchar(20), 
+	   date_of_birth date,
+	   sex nvarchar(20), 
+	   address_type nvarchar(20), 
+	   district_name nvarchar(20),
+	   mobile_phone_number nvarchar(15)
+    )
+)</property>
+                        <property
+                          dataType="System.String"
+                          description="The variable that contains the SQL command to be executed."
+                          name="SqlCommandVariable"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">2</property>
+                        <property
+                          dataType="System.String"
+                          description="The mappings between the parameters in the SQL command and variables."
+                          name="ParameterMapping"></property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[Source]"
+                          connectionManagerRefId="Package.ConnectionManagers[Source]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <outputs>
+                        <output
+                          refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output]"
+                          name="OLE DB Source Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[client_id]"
+                              dataType="i4"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[client_id]"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[client_id]"
+                              name="client_id"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[resident_given_name]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[resident_given_name]"
+                              length="20"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[resident_given_name]"
+                              name="resident_given_name"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[resident_surname]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[resident_surname]"
+                              length="20"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[resident_surname]"
+                              name="resident_surname"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[date_of_birth]"
+                              dataType="dbDate"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[date_of_birth]"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[date_of_birth]"
+                              name="date_of_birth"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[sex]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[sex]"
+                              length="20"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[sex]"
+                              name="sex"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[address_type]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[address_type]"
+                              length="20"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[address_type]"
+                              name="address_type"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[district_name]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[district_name]"
+                              length="20"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[district_name]"
+                              name="district_name"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[mobile_phone_number]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[mobile_phone_number]"
+                              length="15"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[mobile_phone_number]"
+                              name="mobile_phone_number"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[user_id]"
+                              dataType="i4"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[user_id]"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].Columns[user_id]"
+                              name="user_id"
+                              truncationRowDisposition="FailComponent" />
+                          </outputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[client_id]"
+                              dataType="i4"
+                              name="client_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[resident_given_name]"
+                              dataType="wstr"
+                              length="20"
+                              name="resident_given_name" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[resident_surname]"
+                              dataType="wstr"
+                              length="20"
+                              name="resident_surname" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[date_of_birth]"
+                              dataType="dbDate"
+                              name="date_of_birth" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[sex]"
+                              dataType="wstr"
+                              length="20"
+                              name="sex" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[address_type]"
+                              dataType="wstr"
+                              length="20"
+                              name="address_type" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[district_name]"
+                              dataType="wstr"
+                              length="20"
+                              name="district_name" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[mobile_phone_number]"
+                              dataType="wstr"
+                              length="15"
+                              name="mobile_phone_number" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output].ExternalColumns[user_id]"
+                              dataType="i4"
+                              name="user_id" />
+                          </externalMetadataColumns>
+                        </output>
+                        <output
+                          refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output]"
+                          isErrorOut="true"
+                          name="OLE DB Source Error Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[user_id]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[user_id]"
+                              name="user_id" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[client_id]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[client_id]"
+                              name="client_id" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[resident_given_name]"
+                              dataType="wstr"
+                              length="20"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[resident_given_name]"
+                              name="resident_given_name" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[resident_surname]"
+                              dataType="wstr"
+                              length="20"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[resident_surname]"
+                              name="resident_surname" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[date_of_birth]"
+                              dataType="dbDate"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[date_of_birth]"
+                              name="date_of_birth" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[sex]"
+                              dataType="wstr"
+                              length="20"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[sex]"
+                              name="sex" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[address_type]"
+                              dataType="wstr"
+                              length="20"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[address_type]"
+                              name="address_type" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[district_name]"
+                              dataType="wstr"
+                              length="20"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[district_name]"
+                              name="district_name" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[mobile_phone_number]"
+                              dataType="wstr"
+                              length="15"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[mobile_phone_number]"
+                              name="mobile_phone_number" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                  </components>
+                  <paths>
+                    <path
+                      refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim.Paths[OLE DB Source Output]"
+                      endId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim.Inputs[OLE DB Destination Input]"
+                      name="OLE DB Source Output"
+                      startId="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging.Outputs[OLE DB Source Output]" />
+                  </paths>
+                </pipeline>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Load All Dimension Tables\Load user_details Dimension Table\Truncate table"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:Description="Execute SQL Task"
+              DTS:DTSID="{49B25FFF-40E7-4D05-A07A-DEED2E2E1EFF}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Truncate table"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{6B393880-67B0-4765-B4C5-883343314DFC}"
+                  SQLTask:SqlStatementSource="DELETE FROM dimension.user_details;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Load All Dimension Tables\Load user_details Dimension Table.PrecedenceConstraints[Constraint]"
+              DTS:CreationName=""
+              DTS:DTSID="{16F2D972-4C34-42B3-8031-2D8A1D0F4C64}"
+              DTS:From="Package\Load All Dimension Tables\Load user_details Dimension Table\Truncate table"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint"
+              DTS:To="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim" />
+          </DTS:PrecedenceConstraints>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load All Dimension Tables\Load user_relations Dimension Table"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{B25EF895-A0DA-4BF7-B29A-BF798CC875BE}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load user_relations Dimension Table">
+          <DTS:Variables />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim"
+              DTS:CreationName="Microsoft.Pipeline"
+              DTS:Description="Data Flow Task"
+              DTS:DTSID="{68F9CF66-BE5A-4315-AC7D-9CD3EBAEA124}"
+              DTS:ExecutableType="Microsoft.Pipeline"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Load user_relations_dim"
+              DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <pipeline
+                  version="1">
+                  <components>
+                    <component
+                      refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim"
+                      componentClassID="Microsoft.OLEDBDestination"
+                      contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                      description="OLE DB Destination"
+                      name="user_relations_dim"
+                      usesDispositions="true"
+                      version="4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset">[Dimension].[user_relations]</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">3</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepIdentity">true</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                          name="FastLoadKeepNulls">false</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                          name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                          name="FastLoadMaxInsertCommitSize">2147483647</property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[Destination]"
+                          connectionManagerRefId="Package.ConnectionManagers[Destination]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <inputs>
+                        <input
+                          refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input]"
+                          errorOrTruncationOperation="Insert"
+                          errorRowDisposition="FailComponent"
+                          hasSideEffects="true"
+                          name="OLE DB Destination Input">
+                          <inputColumns>
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].Columns[client_id]"
+                              cachedDataType="i4"
+                              cachedName="client_id"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].ExternalColumns[client_id]"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[client_id]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].Columns[sex]"
+                              cachedDataType="wstr"
+                              cachedLength="20"
+                              cachedName="sex"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].ExternalColumns[sex]"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[sex]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].Columns[relation_id]"
+                              cachedDataType="i4"
+                              cachedName="relation_id"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].ExternalColumns[relation_id]"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[relation_id]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].Columns[relation_type]"
+                              cachedDataType="i4"
+                              cachedName="relation_type"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].ExternalColumns[relation_type]"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[relation_type]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].Columns[facility_id]"
+                              cachedDataType="i4"
+                              cachedName="facility_id"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].ExternalColumns[facility_id]"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[facility_id]" />
+                            <inputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].Columns[relations_id]"
+                              cachedDataType="i4"
+                              cachedName="relations_id"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].ExternalColumns[relations_id]"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[relations_id]" />
+                          </inputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].ExternalColumns[client_id]"
+                              dataType="i4"
+                              name="client_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].ExternalColumns[sex]"
+                              dataType="wstr"
+                              length="20"
+                              name="sex" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].ExternalColumns[relation_id]"
+                              dataType="i4"
+                              name="relation_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].ExternalColumns[relation_type]"
+                              dataType="i4"
+                              name="relation_type" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].ExternalColumns[facility_id]"
+                              dataType="i4"
+                              name="facility_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input].ExternalColumns[relations_id]"
+                              dataType="i4"
+                              name="relations_id" />
+                          </externalMetadataColumns>
+                        </input>
+                      </inputs>
+                      <outputs>
+                        <output
+                          refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Outputs[OLE DB Destination Error Output]"
+                          exclusionGroup="1"
+                          isErrorOut="true"
+                          name="OLE DB Destination Error Output"
+                          synchronousInputId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input]">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                    <component
+                      refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging"
+                      componentClassID="Microsoft.OLEDBSource"
+                      contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                      description="OLE DB Source"
+                      name="user_relations_staging"
+                      usesDispositions="true"
+                      version="7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                          name="CommandTimeout">0</property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the name of the database object used to open a rowset."
+                          name="OpenRowset"></property>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the variable that contains the name of the database object used to open a rowset."
+                          name="OpenRowsetVariable"></property>
+                        <property
+                          dataType="System.String"
+                          description="The SQL command to be executed."
+                          name="SqlCommand"
+                          UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">EXEC geteRelationType
+WITH RESULT
+SETS
+ (
+    (                 
+                     relations_id int,
+       	   client_id int, 
+	   sex nvarchar(20), 
+	   relation_id int, 
+	   relation_type int, 
+	   facility_id int
+    )
+ )</property>
+                        <property
+                          dataType="System.String"
+                          description="The variable that contains the SQL command to be executed."
+                          name="SqlCommandVariable"></property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the column code page to use when code page information is unavailable from the data source."
+                          name="DefaultCodePage">1252</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Forces the use of the DefaultCodePage property value when describing character data."
+                          name="AlwaysUseDefaultCodePage">false</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the mode used to access the database."
+                          name="AccessMode"
+                          typeConverter="AccessMode">2</property>
+                        <property
+                          dataType="System.String"
+                          description="The mappings between the parameters in the SQL command and variables."
+                          name="ParameterMapping"></property>
+                      </properties>
+                      <connections>
+                        <connection
+                          refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Connections[OleDbConnection]"
+                          connectionManagerID="Package.ConnectionManagers[Source]"
+                          connectionManagerRefId="Package.ConnectionManagers[Source]"
+                          description="The OLE DB runtime connection used to access the database."
+                          name="OleDbConnection" />
+                      </connections>
+                      <outputs>
+                        <output
+                          refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output]"
+                          name="OLE DB Source Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[client_id]"
+                              dataType="i4"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].ExternalColumns[client_id]"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[client_id]"
+                              name="client_id"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[sex]"
+                              dataType="wstr"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].ExternalColumns[sex]"
+                              length="20"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[sex]"
+                              name="sex"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[relation_id]"
+                              dataType="i4"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].ExternalColumns[relation_id]"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[relation_id]"
+                              name="relation_id"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[relation_type]"
+                              dataType="i4"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].ExternalColumns[relation_type]"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[relation_type]"
+                              name="relation_type"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[facility_id]"
+                              dataType="i4"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].ExternalColumns[facility_id]"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[facility_id]"
+                              name="facility_id"
+                              truncationRowDisposition="FailComponent" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[relations_id]"
+                              dataType="i4"
+                              errorOrTruncationOperation="Conversion"
+                              errorRowDisposition="FailComponent"
+                              externalMetadataColumnId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].ExternalColumns[relations_id]"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].Columns[relations_id]"
+                              name="relations_id"
+                              truncationRowDisposition="FailComponent" />
+                          </outputColumns>
+                          <externalMetadataColumns
+                            isUsed="True">
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].ExternalColumns[client_id]"
+                              dataType="i4"
+                              name="client_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].ExternalColumns[sex]"
+                              dataType="wstr"
+                              length="20"
+                              name="sex" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].ExternalColumns[relation_id]"
+                              dataType="i4"
+                              name="relation_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].ExternalColumns[relation_type]"
+                              dataType="i4"
+                              name="relation_type" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].ExternalColumns[facility_id]"
+                              dataType="i4"
+                              name="facility_id" />
+                            <externalMetadataColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output].ExternalColumns[relations_id]"
+                              dataType="i4"
+                              name="relations_id" />
+                          </externalMetadataColumns>
+                        </output>
+                        <output
+                          refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output]"
+                          isErrorOut="true"
+                          name="OLE DB Source Error Output">
+                          <outputColumns>
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[relations_id]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[relations_id]"
+                              name="relations_id" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[client_id]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[client_id]"
+                              name="client_id" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[sex]"
+                              dataType="wstr"
+                              length="20"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[sex]"
+                              name="sex" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[relation_id]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[relation_id]"
+                              name="relation_id" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[relation_type]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[relation_type]"
+                              name="relation_type" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[facility_id]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[facility_id]"
+                              name="facility_id" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                              name="ErrorCode"
+                              specialFlags="1" />
+                            <outputColumn
+                              refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              dataType="i4"
+                              lineageId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                              name="ErrorColumn"
+                              specialFlags="2" />
+                          </outputColumns>
+                          <externalMetadataColumns />
+                        </output>
+                      </outputs>
+                    </component>
+                  </components>
+                  <paths>
+                    <path
+                      refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim.Paths[OLE DB Source Output]"
+                      endId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim.Inputs[OLE DB Destination Input]"
+                      name="OLE DB Source Output"
+                      startId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging.Outputs[OLE DB Source Output]" />
+                  </paths>
+                </pipeline>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\Load All Dimension Tables\Load user_relations Dimension Table\Truncate table"
+              DTS:CreationName="Microsoft.ExecuteSQLTask"
+              DTS:Description="Execute SQL Task"
+              DTS:DTSID="{75e2f711-ea5c-47c3-bf0e-08c6b23973fe}"
+              DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Truncate table"
+              DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+              DTS:ThreadHint="0">
+              <DTS:Variables />
+              <DTS:ObjectData>
+                <SQLTask:SqlTaskData
+                  SQLTask:Connection="{6B393880-67B0-4765-B4C5-883343314DFC}"
+                  SQLTask:SqlStatementSource="DELETE FROM dimension.user_relations;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\Load All Dimension Tables\Load user_relations Dimension Table.PrecedenceConstraints[Constraint]"
+              DTS:CreationName=""
+              DTS:DTSID="{D9D19C4B-4703-4B36-B5A4-2010D97ADC8A}"
+              DTS:From="Package\Load All Dimension Tables\Load user_relations Dimension Table\Truncate table"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint"
+              DTS:To="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim" />
+          </DTS:PrecedenceConstraints>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load All Dimension Tables.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{C34B6D10-4418-468B-9C95-159720B93D3F}"
+          DTS:From="Package\Load All Dimension Tables\Load user_details Dimension Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Load All Dimension Tables\Load user_relations Dimension Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load All Dimension Tables.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{F9F76996-E10A-45BD-B14E-6777018D2970}"
+          DTS:From="Package\Load All Dimension Tables\Load user_relations Dimension Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Load All Dimension Tables\Load patient_status Dimension Table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load All Dimension Tables.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{AEF0DB4D-8FAF-4F00-A80C-37196E71894A}"
+          DTS:From="Package\Load All Dimension Tables\Load patient_status Dimension Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Load All Dimension Tables\Load client_details Fact Table" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="190,42"
+          Id="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim"
+          TopLeft="15,115.5" />
+        <NodeLayout
+          Size="149,42"
+          Id="Package\Load All Dimension Tables\Load user_details Dimension Table\Truncate table"
+          TopLeft="32,6.5" />
+        <EdgeLayout
+          Id="Package\Load All Dimension Tables\Load user_details Dimension Table.PrecedenceConstraints[Constraint]"
+          TopLeft="108.25,48.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,67"
+              Start="0,0"
+              End="0,59.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,59.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="False"
+          PanelSize="219,212"
+          Size="219,43"
+          Id="Package\Load All Dimension Tables\Load user_details Dimension Table"
+          TopLeft="17.5,5.5" />
+        <EdgeLayout
+          Id="Package\Load All Dimension Tables.PrecedenceConstraints[Constraint]"
+          TopLeft="126.75,48.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50"
+              Start="0,0"
+              End="0,42.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="199,42"
+          Id="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim"
+          TopLeft="8,135.5" />
+        <NodeLayout
+          Size="149,42"
+          Id="Package\Load All Dimension Tables\Load user_relations Dimension Table\Truncate table"
+          TopLeft="28,20.5" />
+        <EdgeLayout
+          Id="Package\Load All Dimension Tables\Load user_relations Dimension Table.PrecedenceConstraints[Constraint]"
+          TopLeft="105,62.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,73"
+              Start="0,0"
+              End="0,65.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,65.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="44"
+          IsExpanded="False"
+          PanelSize="216,209"
+          Size="216,44"
+          Id="Package\Load All Dimension Tables\Load user_relations Dimension Table"
+          TopLeft="18.5,98.5" />
+        <EdgeLayout
+          Id="Package\Load All Dimension Tables.PrecedenceConstraints[Constraint 1]"
+          TopLeft="128.25,142.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55"
+              Start="0,0"
+              End="0,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="199,42"
+          Id="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim"
+          TopLeft="14,115.5" />
+        <NodeLayout
+          Size="149,42"
+          Id="Package\Load All Dimension Tables\Load patient_status Dimension Table\Truncate table"
+          TopLeft="39,13" />
+        <EdgeLayout
+          Id="Package\Load All Dimension Tables\Load patient_status Dimension Table.PrecedenceConstraints[Constraint]"
+          TopLeft="113.5,55">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60.5"
+              Start="0,0"
+              End="0,53">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="False"
+          PanelSize="235,212"
+          Size="225,43"
+          Id="Package\Load All Dimension Tables\Load patient_status Dimension Table"
+          TopLeft="17.5,197.5" />
+        <EdgeLayout
+          Id="Package\Load All Dimension Tables.PrecedenceConstraints[Constraint 2]"
+          TopLeft="133.25,240.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46"
+              Start="0,0"
+              End="0,38.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="143,42"
+          Id="Package\Load All Dimension Tables\Load client_details Fact Table\client_details"
+          TopLeft="37,49" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="False"
+          PanelSize="229,146"
+          Size="229,43"
+          Id="Package\Load All Dimension Tables\Load client_details Fact Table"
+          TopLeft="22,286.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="False"
+          PanelSize="256,384"
+          Size="233,43"
+          Id="Package\Load All Dimension Tables"
+          TopLeft="21,33" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="167,42"
+          Id="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim"
+          TopLeft="12,104" />
+        <NodeLayout
+          Size="184,42"
+          Id="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging"
+          TopLeft="2,4" />
+        <EdgeLayout
+          Id="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim.Paths[OLE DB Source Output]"
+          TopLeft="94.75,46">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,58"
+              Start="0,0"
+              End="0,50.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_dim">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load All Dimension Tables\Load user_details Dimension Table\Load user_details_dim\client_details_staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="172,42"
+          Id="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim"
+          TopLeft="21,136" />
+        <NodeLayout
+          Size="190,42"
+          Id="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging"
+          TopLeft="14,32" />
+        <EdgeLayout
+          Id="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim.Paths[OLE DB Source Output]"
+          TopLeft="108,74">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,62"
+              Start="0,0"
+              End="0,54.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_dim">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load All Dimension Tables\Load user_relations Dimension Table\Load user_relations_dim\user_relations_staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="189,42"
+          Id="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging"
+          TopLeft="19,19" />
+        <NodeLayout
+          Size="171,42"
+          Id="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim"
+          TopLeft="23,151" />
+        <EdgeLayout
+          Id="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim.Paths[OLE DB Source Output]"
+          TopLeft="111,61">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,90"
+              Start="0,0"
+              End="0,82.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,82.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load All Dimension Tables\Load patient_status Dimension Table\Load patient_status_dim\patient_status_dim">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load All Dimension Tables\Load client_details Fact Table\client_details">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="179,42"
+          Id="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails"
+          TopLeft="22,10" />
+        <NodeLayout
+          Size="225,42"
+          Id="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table"
+          TopLeft="0,121" />
+        <EdgeLayout
+          Id="Package\Load All Dimension Tables\Load client_details Fact Table\client_details.Paths[OLE DB Source Output]"
+          TopLeft="112,52">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,69"
+              Start="0,0"
+              End="0,61.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,61.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Exec getUserDetails">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load All Dimension Tables\Load client_details Fact Table\client_details\Load client_details Fact Table">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
